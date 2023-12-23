@@ -9,12 +9,14 @@ function Notes() {
     const notes = useSelector(selectNote)
 
     return (
-        <div className='row my-3'>
-            <h1>Your Notes</h1>
+        <>
+            <div className='row my-3'>
+                <h1>Your Notes</h1>
                 {notes.map((note) => {
-                    return <Noteitem note={note} />
+                    return <Noteitem note={note} key={note._id} />
                 })}
-        </div>
+            </div>
+        </>
     )
 }
 
