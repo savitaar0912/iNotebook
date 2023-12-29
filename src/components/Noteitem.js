@@ -4,15 +4,39 @@ import { deleteNote, updateNote } from '../store/Notes/noteslice';
 
 export default function Noteitem({ note }) {
 
+  const hostName = "http://localhost:5000"
+
   const dispatch = useDispatch();
 
-  const handleEditClick = () => {
+  const { title, description, tag, _id } = { ...note }
+
+  const handleEditClick = async () => {
+
+    // API CALL 
+    const response = await fetch(`${hostName}/api/notes/updatenote/${_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTFkYzc3Yzk4OGUzNDg5ZDA1ZDI5MzUiLCJpYXQiOjE2OTY2NzU1NDN9.tR9jWT5KwAPsQNhRKtQhJvV6iAi2iFDCelJ7z45VhC0"
+      },
+      body: JSON.stringify({ title, description, tag }),
+    });
+
     // Implement your edit functionality here
-    // console.log(`Edit note with ID: ${note._id}`);
-    dispatch(updateNote(note._id))
+    dispatch(updateNote(note))
   };
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = async () => {
+
+    // API CALL 
+    const response = await fetch(`${hostName}/api/notes/deletenote/${_id}`, {
+      method: "DELETE",
+      headers: {
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTFkYzc3Yzk4OGUzNDg5ZDA1ZDI5MzUiLCJpYXQiOjE2OTY2NzU1NDN9.tR9jWT5KwAPsQNhRKtQhJvV6iAi2iFDCelJ7z45VhC0"
+      },
+      body: JSON.stringify(),
+    });
+
     // Dispatch the deleteNote action with the note ID
     dispatch(deleteNote({ _id: note._id }));
   };
