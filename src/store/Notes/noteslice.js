@@ -21,15 +21,15 @@ export const createNoteSlice = (initialNotes) => {
       // UPDATE/EDIT NOTE
       updateNote: (state, action) => {
         // LOGIC
-        console.log(`Updating existing note with id ${action.payload} `);
+        console.log(`Updating existing note with id ${action.payload} `, action.payload);
 
-        const { title, description, tag, _id } = action.payload;
+        const {_id, title, description} = action.payload;
 
         const note = state.notes.find((note) => note._id === _id);
+
         if (note) {
           note.title = title;
           note.description = description;
-          note.tag = tag;
         }
       },
 

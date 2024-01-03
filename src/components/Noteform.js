@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { addNote } from '../store/Notes/noteslice';
 import { useDispatch } from 'react-redux';
 
-export default function Noteform() {
+export default function Noteform({ setReload }) {
 
     const hostName = "http://localhost:5000"
-    
+
     const dispatch = useDispatch();
 
     // State to store form values
@@ -38,7 +38,7 @@ export default function Noteform() {
         if (!response.ok) {
             console.error(`Error: ${response.status} - ${response.statusText}`);
         } else {
-            console.log("Success")     
+            console.log("Success")
         }
         // Dispatch the addNote action with the form data
         dispatch(addNote(formData));
@@ -49,6 +49,8 @@ export default function Noteform() {
             description: '',
             tag: '',
         });
+
+        setReload(true)
     };
 
     return (

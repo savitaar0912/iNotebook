@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteNote, updateNote } from '../store/Notes/noteslice';
+import { deleteNote } from '../store/Notes/noteslice';
+import EditNote from './EditNote';
 
 export default function Noteitem({ note }) {
 
@@ -10,20 +11,11 @@ export default function Noteitem({ note }) {
 
   const { title, description, tag, _id } = { ...note }
 
-  const handleEditClick = async () => {
+  const [showBtn, setshowBtn] = useState(false)
 
-    // API CALL 
-    const response = await fetch(`${hostName}/api/notes/updatenote/${_id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTFkYzc3Yzk4OGUzNDg5ZDA1ZDI5MzUiLCJpYXQiOjE2OTY2NzU1NDN9.tR9jWT5KwAPsQNhRKtQhJvV6iAi2iFDCelJ7z45VhC0"
-      },
-      body: JSON.stringify({ title, description, tag }),
-    });
-
-    // Implement your edit functionality here
-    dispatch(updateNote(note))
+  const handleEditClick = (e) => {
+    e.preventDefault()
+    setshowBtn(true)
   };
 
   const handleDeleteClick = async () => {
@@ -49,7 +41,8 @@ export default function Noteitem({ note }) {
           <div className="card-body">
             <div className='d-flex mx-2 my-2 align-items-center'>
               <h5 className="card-title">{note.title}</h5>
-              <i className="fa fa-pen mx-2" onClick={handleEditClick}></i>
+              {!showBtn && <i className="fa fa-pen mx-2" onClick={handleEditClick}></i>}
+              {showBtn && <EditNote showBtn={showBtn} setshowBtn={setshowBtn} note={note} />}
               <i className="fa fa-trash mx-2" onClick={handleDeleteClick}></i>
             </div>
             <p className="card-text">{note.description}</p>

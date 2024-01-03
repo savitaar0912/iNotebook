@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react'
-// import { useSelector } from 'react-redux'
-// import { selectNote } from '../store/Notes/noteslice'
 import Noteitem from './Noteitem'
 import '../CSS/Notes.css'
 import { createNoteSlice } from '../store/Notes/noteslice'
 
-function Notes() {
+function Notes({reload , setReload}) {
 
     const host = 'http://localhost:5000'
-
-    // const note = useSelector(selectNote)
 
     const [notes, setNotes] = useState([])
 
@@ -24,13 +20,14 @@ function Notes() {
         const json = await response.json()
         // console.log(json)
         setNotes(json.Notes)
+        setReload(false)
         const noteSlice = createNoteSlice(json.Notes);
         // console.log(noteSlice)
     }
 
     useEffect(() => {
         getNote()
-    }, [notes])
+    }, [reload])
 
 
     return (
