@@ -35,7 +35,7 @@ function Notes({reload , setReload}) {
             <div className="row my-3">
                 <h1>Your Notes</h1>
                 {notes.map((note) => {
-                    return <Noteitem note={note} key={note._id} />;
+                    return <Noteitem reload={reload} setReload={setReload} note={note} setNotes={setNotes} key={note._id} />;
                 })}
             </div>
         </>
