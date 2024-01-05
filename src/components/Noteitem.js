@@ -18,6 +18,8 @@ export default function Noteitem({ reload, setReload, note }) {
       },
     });
 
+    console.log(response)
+
     // Dispatch the deleteNote action with the note ID
     dispatch(deleteNote({ _id: note._id }));
     setReload(true)

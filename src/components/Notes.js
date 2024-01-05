@@ -24,7 +24,7 @@ function Notes({ reload, setReload }) {
         setNotes(json.Notes)
         setReload(false)
         const noteSlice = createNoteSlice(json.Notes);
-        // console.log(noteSlice)
+        console.log(noteSlice)
     }
 
     useEffect(() => {
@@ -34,6 +34,7 @@ function Notes({ reload, setReload }) {
         else {
             navigate('/login')
         }
+        // eslint-disable-next-line
     }, [reload])
 
 
