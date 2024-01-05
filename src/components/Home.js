@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Notes from './Notes'
-import Users from './UserForm'
 import Noteform from './Noteform'
 
 export default function Home() {
@@ -9,7 +8,6 @@ export default function Home() {
 
   return (
     <>
-    <Users/>
     <Noteform setReload={setReload} />
     <Notes reload={reload} setReload={setReload}/>
     </>

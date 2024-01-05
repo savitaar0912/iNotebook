@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Noteitem from './Noteitem'
 import '../CSS/Notes.css'
 import { createNoteSlice } from '../store/Notes/noteslice'
+import { useNavigate } from 'react-router-dom'
 
-function Notes({reload , setReload}) {
+function Notes({ reload, setReload }) {
 
     const host = 'http://localhost:5000'
+    const navigate = useNavigate()
 
     const [notes, setNotes] = useState([])
 
@@ -14,7 +16,7 @@ function Notes({reload , setReload}) {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTFkYzc3Yzk4OGUzNDg5ZDA1ZDI5MzUiLCJpYXQiOjE2OTY2NzU1NDN9.tR9jWT5KwAPsQNhRKtQhJvV6iAi2iFDCelJ7z45VhC0"
+                "auth-token": localStorage.getItem('token')
             },
         });
         const json = await response.json()
@@ -26,7 +28,12 @@ function Notes({reload , setReload}) {
     }
 
     useEffect(() => {
-        getNote()
+        if (localStorage.getItem('token')) {
+            getNote()
+        }
+        else {
+            navigate('/login')
+        }
     }, [reload])
 
 
